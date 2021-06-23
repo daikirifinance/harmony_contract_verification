@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.3.6/web3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
+    <script>
+        (async () => {
+            const web3 = new Web3('https://api.s0.t.hmny.io')
+            const bytecode = await web3.eth.getCode('0xF315803Ba9dA293765ab163E7dB98E8d6Df6D361')
+            console.log(bytecode)
+            const hash = sha256(bytecode)
+            document.getElementById('harmony-bytecode').innerHTML = hash
+
+            // BSC Testnet
+            const web3BSC = new Web3('https://data-seed-prebsc-1-s2.binance.org:8545/')
+            const bsc_bytecode = await web3BSC.eth.getCode('0xd423f532941635e167e1b6e9cdc081f168c745be')
+            const bsc_hash = sha256(bsc_bytecode)
+            document.getElementById('bsc-bytecode').innerHTML = bsc_hash
+        })()
+    </script>
+    <style>
+        .bytecode {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<code>
+    // Harmony (mainnet) <br>
+    const web3 = new Web3('https://api.s0.t.hmny.io') <br>
+    const bytecode = await web3.eth.getCode('0xF315803Ba9dA293765ab163E7dB98E8d6Df6D361')<br>
+    console.log(bytecode)<br>
+    const hash = sha256(bytecode)<br>
+    document.getElementById('harmony-bytecode').innerHTML = hash<br><br>
+
+    // BSC Testnet <br>
+    const web3BSC = new Web3('https://data-seed-prebsc-1-s2.binance.org:8545/')<br>
+    const bsc_bytecode = await web3BSC.eth.getCode('0xd423f532941635e167e1b6e9cdc081f168c745be')<br>
+    const bsc_hash = sha256(bsc_bytecode)<br>
+    document.getElementById('bsc-bytecode').innerHTML = bsc_hash<br>
+</code>
+
+<div style="margin-top: 20px">Contract Harmony: <span>0xF315803Ba9dA293765ab163E7dB98E8d6Df6D361</span></div>
+<div>Bytecode's hash (Harmony): </div>
+<div class="bytecode" id="harmony-bytecode"></div>
+<div style="margin-top: 20px"></div>
+<div>Contract BSC (testnet): <span>0xd423f532941635e167e1b6e9cdc081f168c745be</span></div>
+<div>Bytecode's hash (BSC): </div>
+<div class="bytecode" id="bsc-bytecode"></div>
+
+<a target="_blank" href="https://testnet.bscscan.com/address/0xd423F532941635e167e1B6E9cDc081f168C745Be#code">View
+    Verified Contract on BSC</a>
+
+</html>
